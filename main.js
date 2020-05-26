@@ -9,9 +9,18 @@ class WikiClient {
     try {
       await this.tab.$eval(`text="${label}"`, el => el.click());
     } catch (e) {
-      console.log(`cannot find link labeled "${label}"`);
+      console.log(`cannot find link labeled "${label}": ${e}`);
     }
   }
+  async followWikiLink(label) {
+    try {
+      await this.tab.$eval(
+        `text="${label}"`, el => el.dispatchEvent(new MouseEvent("click")));
+    } catch (e) {
+      console.log(`cannot find link labeled "${label}": ${e}`);
+    }
+  }
+
 }
 
 async function defaultContext() {
